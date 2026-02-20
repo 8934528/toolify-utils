@@ -1,37 +1,131 @@
-# Toolify-Utils  
-**Your All-in-One Web Utility App**  
+# React + TypeScript + Vite
 
-## Why I Built This  
-- **Problem Solver** - Combined multiple single-purpose tools into one  
-- **Minimalist Design** - No bloated interfaces, only essential features  
-- **Consistent Experience** - Unified look across all utilities  
-- **Offline Ready** - PWA-friendly for internet-free usage  
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features  
-- **Calculator** - Basic arithmetic operations  
-- **Temperature Converter** - Switch between °C, °F, and K  
-- **To-Do List** - Add, delete, and manage tasks  
+Currently, two official plugins are available:
 
-## Tech Stack  
-- **Frontend**:  
-  ![HTML5](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white)  
-  ![CSS3](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)  
-  ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=black)  
-- **Styling**:  
-  ![Bootstrap](https://img.shields.io/badge/-Bootstrap-7952B3?logo=bootstrap&logoColor=white)  
-  ![Custom CSS](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white)  
-- **Icons**: [Fontisto](https://fontisto.com/) (FlatIcon alternative)  
-- **Animations**: [Animate.css](https://animate.style/)  
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Unique Design Choices  
-- **Color Scheme**:  
-  ![Teal](https://img.shields.io/badge/-Teal-008080?logoColor=white)  
-  ![Coral](https://img.shields.io/badge/-Coral-FF7F50?logoColor=white)  
-  ![Mustard](https://img.shields.io/badge/-Mustard-FFDB58?logoColor=black)  
-- **Smooth Transitions** - Hover effects & entrance animations  
-- **Mobile-First** - Fully responsive design  
+## React Compiler
 
-## Live Demo  
-Try it here: [[https://YOUR_NETLIFY_SITE.netlify.app](https://toolify-utils.netlify.app/)]  
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
---- 
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
+
+## Project Structure
+
+toolify-utils/
+  ├── public/
+  │   ├── icons/
+  │   │   ├── icon-192x192.png
+  │   │   └── icon-512x512.png
+  │   ├── images/
+  │   │   └── background.jpeg
+  │   └── manifest.json
+  ├── src/
+  │   ├── components/
+  │   │   ├── common/
+  │   │   |   ├── ConfirmationModal.css
+  │   │   |   └── ConfirmationModal.tsx
+  │   │   └── Layout/
+  │   │       ├── Navbar.css
+  │   │       ├── Navbar.tsx
+  │   │       ├── Toast.css
+  │   │       └── Toast.tsx
+  │   ├── hooks/
+  │   │   ├── useSession.tsx
+  │   │   └── useToast.tsx
+  │   ├── pages/
+  │   │   ├── Calculator/
+  │   │   │   ├── Calculator.css
+  │   │   │   └── Calculator.tsx
+  │   │   ├── Home/
+  │   │   │   ├── Home.css
+  │   │   │   └── Home.tsx
+  │   │   ├── TemperatureConverter/
+  │   │   │   ├── TemperatureConverter.css
+  │   │   │   └── TemperatureConverter.tsx
+  │   │   ├── Todo/
+  │   │   │   ├── Todo.css
+  │   │   │   └── Todo.tsx
+  │   │   └── Unavailable/
+  │   │       ├── Unavailable.css
+  │   │       └── Unavailable.tsx
+  │   ├── types/
+  │   │   └── index.ts
+  │   ├── utils/
+  │   │   └── session.ts
+  │   ├── App.css
+  │   ├── App.tsx
+  │   ├── index.css
+  │   ├── main.tsx
+  │   └── vite-env.d.ts
+  ├── .env
+  ├── .gitignore
+  ├── index.html
+  ├── netlify.toml
+  ├── package.json
+  ├── tsconfig.app.json
+  ├── tsconfig.json
+  ├── tsconfig.node.json
+  └── vite.config.ts
