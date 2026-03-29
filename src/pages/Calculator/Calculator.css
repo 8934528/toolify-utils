@@ -9,14 +9,17 @@
   max-width: none;
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 340px;
   gap: 2rem;
 }
 
 .calculator-main {
   background: var(--card);
   border-radius: 7px;
-  padding: 2rem;
+  padding: 1.8rem;
+  max-width: 430px;
+  width: 100%;
+  font-size: 0.95rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,7 +29,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.9rem;
+  font-size: 1.7rem;
 }
 
 .calculator-header h1 i {
@@ -42,7 +45,7 @@
 }
 
 .display-value {
-  font-size: 2.6rem;
+  font-size: 2.3rem;
   font-family: 'Courier New', monospace;
   text-align: right;
   color: var(--text);
@@ -52,13 +55,13 @@
 .button-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .button-grid button {
   border: none;
-  padding: 1rem;
-  font-size: 1.1rem;
+  padding: 0.9rem;
+  font-size: 0.95rem;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -105,7 +108,7 @@
 .calculator-history {
   background: var(--card);
   border-radius: 7px;
-  padding: 1.5rem;
+  padding: 1.7rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -124,7 +127,7 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--text);
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .btn-clear-history {
@@ -132,7 +135,7 @@
   border: none;
   color: var(--danger);
   cursor: pointer;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   padding: 0.5rem;
   border-radius: 50%;
   transition: all 0.2s ease;
@@ -155,7 +158,7 @@
 }
 
 .history-empty i {
-  font-size: 2.6rem;
+  font-size: 2.3rem;
   margin-bottom: 1rem;
   opacity: 0.5;
 }
@@ -171,19 +174,19 @@
 }
 
 .history-expression {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--text-light);
   margin-bottom: 0.25rem;
 }
 
 .history-result {
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--primary);
 }
 
 .history-time {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   color: var(--text-light);
   margin-top: 0.25rem;
 }
@@ -209,11 +212,11 @@
   }
 
   .display-value {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .button-grid button {
     padding: 0.75rem;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }

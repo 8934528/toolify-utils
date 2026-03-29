@@ -9,7 +9,7 @@
   max-width: none;
   margin: 0;
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 340px;
   gap: 2rem;
 }
 
@@ -216,7 +216,7 @@
 .converter-history {
   background: var(--card);
   border-radius: 7px;
-  padding: 1.5rem;
+  padding: 1.7rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   height: fit-content;
 }
