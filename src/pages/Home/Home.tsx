@@ -36,53 +36,52 @@ const Home: React.FC = () => {
 
   return (
     <div className="home">
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title fade-in">
-            Welcome to <span className="text-gradient">Toolify-Utils</span>
-          </h1>
-          <p className="hero-subtitle fade-in">
-            Your all-in-one collection of smart, efficient, and easy-to-use tools
-          </p>
-        </div>
-      </div>
-
       <div className="tools-section">
-        <h2 className="section-title">Available Tools</h2>
-        <div className="tools-grid">
-          {tools.map((tool, index) => (
-            <Link
-              key={tool.path}
-              to={getLinkWithSession(tool.path)}
-              className={`tool-card tool-card-${tool.color} fade-in`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="tool-icon-wrapper">
-                <i className={tool.icon}></i>
-              </div>
-              <h3 className="tool-title">{tool.title}</h3>
-              <p className="tool-description">{tool.description}</p>
-              <span className="tool-link">
-                Open Tool <i className="fi fi-rr-arrow-right"></i>
-              </span>
-            </Link>
-          ))}
+        <div className="section-header">
+          <h2 className="section-title">Dashboard</h2>
+          <p className="section-subtitle">Overview of available tools</p>
         </div>
-      </div>
+        <div className="row g-4 align-items-start">
+          <div className="col-12 col-lg-9">
+            <div className="row g-4">
+              {tools.map((tool, index) => (
+                <div key={tool.path} className="col-12 col-md-6 col-xl-4">
+                  <Link
+                    to={getLinkWithSession(tool.path)}
+                    className={`tool-card tool-card-${tool.color} fade-in`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="tool-icon-wrapper">
+                      <i className={tool.icon}></i>
+                    </div>
+                    <h3 className="tool-title">{tool.title}</h3>
+                    <p className="tool-description">{tool.description}</p>
+                    <span className="tool-link">
+                      Open Tool <i className="fi fi-rr-arrow-right"></i>
+                    </span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-item fade-in">
-            <div className="stat-value">3+</div>
-            <div className="stat-label">Useful Tools</div>
-          </div>
-          <div className="stat-item fade-in">
-            <div className="stat-value">100%</div>
-            <div className="stat-label">Free to Use</div>
-          </div>
-          <div className="stat-item fade-in">
-            <div className="stat-value">24/7</div>
-            <div className="stat-label">Availability</div>
+          <div className="col-12 col-lg-3">
+            <div className="stats-section">
+              <div className="stats-grid">
+                <div className="stat-item fade-in">
+                  <div className="stat-value">3+</div>
+                  <div className="stat-label">Useful Tools</div>
+                </div>
+                <div className="stat-item fade-in">
+                  <div className="stat-value">100%</div>
+                  <div className="stat-label">Free to Use</div>
+                </div>
+                <div className="stat-item fade-in">
+                  <div className="stat-value">24/7</div>
+                  <div className="stat-label">Availability</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

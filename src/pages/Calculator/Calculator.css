@@ -1,12 +1,13 @@
 .calculator-page {
   min-height: 100%;
-  padding: 2rem;
-  background: linear-gradient(135deg, var(--primary-light), #fff);
+  padding: 2rem clamp(0.75rem, 2.2vw, 2rem);
+  background: var(--primary-light);
 }
 
 .calculator-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 2rem;
@@ -14,7 +15,7 @@
 
 .calculator-main {
   background: var(--card);
-  border-radius: 20px;
+  border-radius: 7px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -25,6 +26,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.9rem;
 }
 
 .calculator-header h1 i {
@@ -33,14 +35,14 @@
 
 .calculator-display {
   background: var(--primary-light);
-  border-radius: 12px;
+  border-radius: 7px;
   padding: 1.5rem;
   margin-bottom: 2rem;
   border: 1px solid var(--border);
 }
 
 .display-value {
-  font-size: 3rem;
+  font-size: 2.6rem;
   font-family: 'Courier New', monospace;
   text-align: right;
   color: var(--text);
@@ -56,7 +58,7 @@
 .button-grid button {
   border: none;
   padding: 1rem;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -102,7 +104,7 @@
 
 .calculator-history {
   background: var(--card);
-  border-radius: 20px;
+  border-radius: 7px;
   padding: 1.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -122,6 +124,7 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--text);
+  font-size: 1.1rem;
 }
 
 .btn-clear-history {
@@ -129,7 +132,7 @@
   border: none;
   color: var(--danger);
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   padding: 0.5rem;
   border-radius: 50%;
   transition: all 0.2s ease;
@@ -152,7 +155,7 @@
 }
 
 .history-empty i {
-  font-size: 3rem;
+  font-size: 2.6rem;
   margin-bottom: 1rem;
   opacity: 0.5;
 }
@@ -168,19 +171,19 @@
 }
 
 .history-expression {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   color: var(--text-light);
   margin-bottom: 0.25rem;
 }
 
 .history-result {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--primary);
 }
 
 .history-time {
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   color: var(--text-light);
   margin-top: 0.25rem;
 }
@@ -206,11 +209,11 @@
   }
 
   .display-value {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .button-grid button {
     padding: 0.75rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }

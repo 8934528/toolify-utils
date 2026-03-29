@@ -12,9 +12,9 @@ import './App.css';
 
 function App() {
   return (
-    <SessionProvider>
-      <ToastProvider>
-        <Router>
+    <Router>
+      <SessionProvider>
+        <ToastProvider>
           <div className="app">
             <Navbar />
             <main className="main-content">
@@ -29,9 +29,9 @@ function App() {
             </main>
             <Toast />
           </div>
-        </Router>
-      </ToastProvider>
-    </SessionProvider>
+        </ToastProvider>
+      </SessionProvider>
+    </Router>
   );
 }
 
