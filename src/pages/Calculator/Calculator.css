@@ -1,22 +1,29 @@
 .calculator-page {
   min-height: 100%;
-  padding: 2rem;
-  background: linear-gradient(135deg, var(--primary-light), #fff);
+  padding: 2rem clamp(0.75rem, 2.2vw, 2rem);
+  background: transparent;
 }
 
 .calculator-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 340px;
   gap: 2rem;
 }
 
 .calculator-main {
   background: var(--card);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.8rem;
+  max-width: 430px;
+  width: 100%;
+  font-size: 0.95rem;
+  box-shadow: var(--glass-shadow);
 }
 
 .calculator-header h1 {
@@ -25,6 +32,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.7rem;
 }
 
 .calculator-header h1 i {
@@ -32,15 +40,16 @@
 }
 
 .calculator-display {
-  background: var(--primary-light);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid var(--border);
+  border: 1px inset var(--border-light);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .display-value {
-  font-size: 3rem;
+  font-size: 2.3rem;
   font-family: 'Courier New', monospace;
   text-align: right;
   color: var(--text);
@@ -50,50 +59,45 @@
 .button-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .button-grid button {
-  border: none;
-  padding: 1rem;
-  font-size: 1.25rem;
+  border: 1px solid var(--border-light);
+  padding: 0.9rem;
+  font-size: 1.1rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  background: var(--background);
+  background: rgba(255, 255, 255, 0.6);
   color: var(--text);
   font-weight: 500;
 }
 
-.button-grid button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.button-grid button:active {
-  transform: translateY(0);
+.glass-btn {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-operator {
-  background: var(--primary-light) !important;
-  color: var(--primary) !important;
-  font-weight: 600 !important;
-}
-
-.btn-operator:hover {
-  background: var(--primary) !important;
-  color: white !important;
+  background: rgba(49, 163, 84, 0.15) !important;
+  color: var(--primary-dark) !important;
+  border-color: rgba(49, 163, 84, 0.3) !important;
 }
 
 .btn-equal {
-  background: var(--accent) !important;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
   color: white !important;
-  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(49, 163, 84, 0.3) !important;
 }
 
 .btn-clear {
-  background: var(--danger) !important;
-  color: white !important;
+  background: rgba(244, 67, 54, 0.15) !important;
+  color: var(--danger) !important;
+  border-color: rgba(244, 67, 54, 0.3) !important;
 }
 
 .btn-zero {
@@ -102,9 +106,12 @@
 
 .calculator-history {
   background: var(--card);
-  border-radius: 20px;
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.7rem;
+  box-shadow: var(--glass-shadow);
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -122,6 +129,7 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--text);
+  font-size: 1rem;
 }
 
 .btn-clear-history {
@@ -129,7 +137,7 @@
   border: none;
   color: var(--danger);
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   padding: 0.5rem;
   border-radius: 50%;
   transition: all 0.2s ease;
@@ -152,35 +160,35 @@
 }
 
 .history-empty i {
-  font-size: 3rem;
+  font-size: 2.3rem;
   margin-bottom: 1rem;
   opacity: 0.5;
 }
 
 .history-item {
   padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s ease;
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 8px;
 }
 
 .history-item:hover {
-  background: var(--background);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .history-expression {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   color: var(--text-light);
   margin-bottom: 0.25rem;
 }
 
 .history-result {
-  font-size: 1.1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--primary);
 }
 
 .history-time {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--text-light);
   margin-top: 0.25rem;
 }
@@ -206,11 +214,11 @@
   }
 
   .display-value {
-    font-size: 2rem;
+    font-size: 1.6rem;
   }
 
   .button-grid button {
     padding: 0.75rem;
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
 }

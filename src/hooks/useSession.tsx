@@ -32,18 +32,20 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
       let currentSession = getSession();
 
       if (!currentSession) {
-        // Create new session
         currentSession = createSession();
         setSession(currentSession);
-        
-        // Update URL if needed
-        if (!urlSessionId) {
-          const newUrl = `${location.pathname}?session=${currentSession.id}`;
-          navigate(newUrl, { replace: true });
-        }
-      } else if (urlSessionId && urlSessionId !== currentSession.id) {
-        // Invalid session in URL
-        navigate('/', { replace: true });
+      }
+
+      // Keep session query param in sync for all routes while preserving other params.
+      if (urlSessionId !== currentSession.id) {
+        params.set('session', currentSession.id);
+        navigate(
+          {
+            pathname: location.pathname,
+            search: `?${params.toString()}`,
+          },
+          { replace: true }
+        );
       }
 
       setSessionState(currentSession);
@@ -51,7 +53,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({ child
     };
 
     initSession();
-  }, [location, navigate]);
+  }, [location.pathname, location.search, navigate]);
 
   return (
     <SessionContext.Provider value={{ session, isLoading }}>

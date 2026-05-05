@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '../../hooks/useToast';
 import { type ConversionHistory } from '../../types';
 import './TemperatureConverter.css';
@@ -175,9 +176,9 @@ const TemperatureConverter: React.FC = () => {
                 </select>
               </div>
 
-              <button onClick={swapUnits} title='exchange' className="swap-button">
+              <motion.button whileHover={{ scale: 1.1, rotate: 180 }} whileTap={{ scale: 0.9 }} onClick={swapUnits} title='exchange' className="swap-button">
                 <i className="fi fi-rr-exchange"></i>
-              </button>
+              </motion.button>
 
               <div className="unit-select">
                 <label>To</label>
@@ -196,31 +197,38 @@ const TemperatureConverter: React.FC = () => {
               </div>
             </div>
 
-            <button onClick={convert} className="convert-button">
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={convert} className="convert-button">
               <i className="fi fi-rr-refresh"></i>
               Convert
-            </button>
+            </motion.button>
 
-            {result !== null && (
-              <div className="result-card">
-                <div className="result-icon">
-                  <i className="fi fi-rr-temperature-high"></i>
-                </div>
-                <div className="result-content">
-                  <div className="result-label">Result</div>
-                  <div className="result-value">
-                    {result.toFixed(2)}
-                    <span className="result-unit">
-                      {units[toUnit as keyof typeof units].symbol}
-                    </span>
+            <AnimatePresence>
+              {result !== null && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="result-card glass-panel"
+                >
+                  <div className="result-icon">
+                    <i className="fi fi-rr-temperature-high"></i>
                   </div>
-                  <div className="result-details">
-                    {temperature} {units[fromUnit as keyof typeof units].symbol} = 
-                    {result.toFixed(2)} {units[toUnit as keyof typeof units].symbol}
+                  <div className="result-content">
+                    <div className="result-label">Result</div>
+                    <div className="result-value">
+                      {result.toFixed(2)}
+                      <span className="result-unit">
+                        {units[toUnit as keyof typeof units].symbol}
+                      </span>
+                    </div>
+                    <div className="result-details">
+                      {temperature} {units[fromUnit as keyof typeof units].symbol} = 
+                      {result.toFixed(2)} {units[toUnit as keyof typeof units].symbol}
+                    </div>
                   </div>
-                </div>
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
@@ -238,28 +246,34 @@ const TemperatureConverter: React.FC = () => {
           </div>
 
           <div className="history-list">
-            {history.length === 0 ? (
-              <div className="history-empty">
-                <i className="fi fi-rr-inbox"></i>
-                <p>No conversions yet</p>
-              </div>
-            ) : (
-              history.map((item, index) => (
-                <div 
-                  key={index} 
-                  className="history-item clickable"
-                  onClick={() => handleHistoryItemClick(item)}
-                >
-                  <div className="history-conversion">
-                    {item.fromValue} {item.fromUnit} =
-                  </div>
-                  <div className="history-result">
-                    {item.toValue.toFixed(2)} {item.toUnit}
-                  </div>
-                  <div className="history-time">{item.timestamp}</div>
-                </div>
-              ))
-            )}
+            <AnimatePresence>
+              {history.length === 0 ? (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="history-empty">
+                  <i className="fi fi-rr-inbox"></i>
+                  <p>No conversions yet</p>
+                </motion.div>
+              ) : (
+                history.map((item, index) => (
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ delay: index * 0.05 }}
+                    key={index} 
+                    className="history-item clickable"
+                    onClick={() => handleHistoryItemClick(item)}
+                  >
+                    <div className="history-conversion">
+                      {item.fromValue} {item.fromUnit} =
+                    </div>
+                    <div className="history-result">
+                      {item.toValue.toFixed(2)} {item.toUnit}
+                    </div>
+                    <div className="history-time">{item.timestamp}</div>
+                  </motion.div>
+                ))
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

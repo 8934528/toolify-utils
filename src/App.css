@@ -6,8 +6,8 @@
 
 .main-content {
   flex: 1;
-  padding-top: 70px;
-  min-height: calc(100vh - 70px);
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
 }
 
 /* Animations */
