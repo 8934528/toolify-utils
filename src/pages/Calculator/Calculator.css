@@ -15,8 +15,8 @@
 
 .calculator-main {
   background: var(--card);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.8rem;
@@ -75,8 +75,8 @@
 
 .glass-btn {
   background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
@@ -106,8 +106,8 @@
 
 .calculator-history {
   background: var(--card);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 1.7rem;

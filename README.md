@@ -1,131 +1,88 @@
-# React + TypeScript + Vite
+# Toolify Utils
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Toolify Utils is a collection of utility tools built with React, TypeScript, and Framer Motion. It provides a sleek, animated, and responsive user interface for everyday utilities.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard:** A centralized hub to access all available tools with smooth 3D hover effects.
+- **Calculator:** A fully functional calculator with history tracking and keyboard support.
+- **Temperature Converter:** Instantly convert between Celsius, Fahrenheit, and Kelvin.
+- **To-Do List:** Organize and manage your daily tasks efficiently.
+- **Glassmorphic UI:** Modern and aesthetic design using CSS glassmorphism.
+- **Page Transitions:** Seamless navigation animations powered by Framer Motion.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React 19 + Vite
+- **Language:** TypeScript
+- **Styling:** Vanilla CSS with custom CSS variables
+- **Animations:** Framer Motion
+- **Routing:** React Router DOM v6
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Running Locally
+
+To start the development server, run:
+
+```bash
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The application will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Building for Production
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+To build the application for production, run:
+
+```bash
+npm run build
 ```
+
+You can preview the production build locally with:
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+This project includes a `netlify.toml` file, making it ready for out-of-the-box deployment on [Netlify](https://www.netlify.com/).
+
+1. Connect your repository to Netlify.
+2. The build command (`npm run build`) and publish directory (`dist`) will be automatically detected.
+3. Deploy!
 
 ## Project Structure
 
+```bash
 toolify-utils/
-  ├── public/
-  │   ├── icons/
-  │   │   ├── icon-192x192.png
-  │   │   └── icon-512x512.png
-  │   ├── images/
-  │   │   └── background.jpeg
-  │   └── manifest.json
-  ├── src/
-  │   ├── components/
-  │   │   ├── common/
-  │   │   |   ├── ConfirmationModal.css
-  │   │   |   └── ConfirmationModal.tsx
-  │   │   └── Layout/
-  │   │       ├── Navbar.css
-  │   │       ├── Navbar.tsx
-  │   │       ├── Toast.css
-  │   │       └── Toast.tsx
-  │   ├── hooks/
-  │   │   ├── useSession.tsx
-  │   │   └── useToast.tsx
-  │   ├── pages/
-  │   │   ├── Calculator/
-  │   │   │   ├── Calculator.css
-  │   │   │   └── Calculator.tsx
-  │   │   ├── Home/
-  │   │   │   ├── Home.css
-  │   │   │   └── Home.tsx
-  │   │   ├── TemperatureConverter/
-  │   │   │   ├── TemperatureConverter.css
-  │   │   │   └── TemperatureConverter.tsx
-  │   │   ├── Todo/
-  │   │   │   ├── Todo.css
-  │   │   │   └── Todo.tsx
-  │   │   └── Unavailable/
-  │   │       ├── Unavailable.css
-  │   │       └── Unavailable.tsx
-  │   ├── types/
-  │   │   └── index.ts
-  │   ├── utils/
-  │   │   └── session.ts
-  │   ├── App.css
-  │   ├── App.tsx
-  │   ├── index.css
-  │   ├── main.tsx
-  │   └── vite-env.d.ts
-  ├── .env
-  ├── .gitignore
-  ├── index.html
-  ├── netlify.toml
-  ├── package.json
-  ├── tsconfig.app.json
-  ├── tsconfig.json
-  ├── tsconfig.node.json
-  └── vite.config.ts
+├── public/               # Static assets (icons, background image)
+├── src/
+│   ├── components/       # Reusable UI components (Navbar, Toast, Layouts)
+│   ├── hooks/            # Custom React hooks (useSession, useToast)
+│   ├── pages/            # Application pages (Home, Calculator, Todo, etc.)
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Utility functions
+│   ├── App.tsx           # Main application component
+│   └── index.css         # Global styles and CSS variables
+├── netlify.toml          # Netlify deployment configuration
+└── vite.config.ts        # Vite configuration
+```
+
+## Contributing
+
+We welcome contributions! If you'd like to add a new tool or improve an existing one, please refer to our [Contributing Guide](CONTRIBUTING.md) for detailed instructions.

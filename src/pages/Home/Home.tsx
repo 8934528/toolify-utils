@@ -4,7 +4,18 @@ import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useSession } from '../../hooks/useSession';
 import './Home.css';
 
-const ToolCard = ({ tool, index, getLinkWithSession }: any) => {
+interface ToolCardProps {
+  tool: {
+    path: string;
+    icon: string;
+    title: string;
+    description: string;
+  };
+  index: number;
+  getLinkWithSession: (path: string) => string;
+}
+
+const ToolCard = ({ tool, index, getLinkWithSession }: ToolCardProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -53,14 +64,13 @@ const ToolCard = ({ tool, index, getLinkWithSession }: any) => {
       <Link
         to={getLinkWithSession(tool.path)}
         className={`tool-card glass-panel`}
-        style={{ transform: "translateZ(30px)" }}
       >
-        <div className="tool-icon-wrapper" style={{ transform: "translateZ(40px)" }}>
+        <div className="tool-icon-wrapper">
           <i className={tool.icon}></i>
         </div>
-        <h3 className="tool-title" style={{ transform: "translateZ(35px)" }}>{tool.title}</h3>
-        <p className="tool-description" style={{ transform: "translateZ(20px)" }}>{tool.description}</p>
-        <span className="tool-link" style={{ transform: "translateZ(40px)" }}>
+        <h3 className="tool-title">{tool.title}</h3>
+        <p className="tool-description">{tool.description}</p>
+        <span className="tool-link">
           Open Tool <i className="fi fi-rr-arrow-right"></i>
         </span>
       </Link>
