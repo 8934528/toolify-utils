@@ -1,7 +1,7 @@
 .calculator-page {
   min-height: 100%;
   padding: 2rem clamp(0.75rem, 2.2vw, 2rem);
-  background: var(--primary-light);
+  background: transparent;
 }
 
 .calculator-container {
@@ -15,12 +15,15 @@
 
 .calculator-main {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1.8rem;
   max-width: 430px;
   width: 100%;
   font-size: 0.95rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
 }
 
 .calculator-header h1 {
@@ -37,11 +40,12 @@
 }
 
 .calculator-display {
-  background: var(--primary-light);
-  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid var(--border);
+  border: 1px inset var(--border-light);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .display-value {
@@ -59,46 +63,41 @@
 }
 
 .button-grid button {
-  border: none;
+  border: 1px solid var(--border-light);
   padding: 0.9rem;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  background: var(--background);
+  background: rgba(255, 255, 255, 0.6);
   color: var(--text);
   font-weight: 500;
 }
 
-.button-grid button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.button-grid button:active {
-  transform: translateY(0);
+.glass-btn {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .btn-operator {
-  background: var(--primary-light) !important;
-  color: var(--primary) !important;
-  font-weight: 600 !important;
-}
-
-.btn-operator:hover {
-  background: var(--primary) !important;
-  color: white !important;
+  background: rgba(49, 163, 84, 0.15) !important;
+  color: var(--primary-dark) !important;
+  border-color: rgba(49, 163, 84, 0.3) !important;
 }
 
 .btn-equal {
-  background: var(--accent) !important;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
   color: white !important;
-  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: 0 4px 15px rgba(49, 163, 84, 0.3) !important;
 }
 
 .btn-clear {
-  background: var(--danger) !important;
-  color: white !important;
+  background: rgba(244, 67, 54, 0.15) !important;
+  color: var(--danger) !important;
+  border-color: rgba(244, 67, 54, 0.3) !important;
 }
 
 .btn-zero {
@@ -107,9 +106,12 @@
 
 .calculator-history {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1.7rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
   display: flex;
   flex-direction: column;
   height: fit-content;
@@ -165,12 +167,12 @@
 
 .history-item {
   padding: 1rem;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.2s ease;
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 8px;
 }
 
 .history-item:hover {
-  background: var(--background);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .history-expression {

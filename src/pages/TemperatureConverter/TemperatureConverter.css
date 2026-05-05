@@ -1,7 +1,7 @@
 .converter-page {
   min-height: 100%;
   padding: 2rem clamp(0.75rem, 2.2vw, 2rem);
-  background: var(--primary-light);
+  background: transparent;
 }
 
 .converter-container {
@@ -15,9 +15,12 @@
 
 .converter-main {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
 }
 
 .converter-header h1 {
@@ -60,11 +63,13 @@
   width: 100%;
   padding: 1rem;
   font-size: 1.05rem;
-  border: 2px solid var(--border);
+  border: 1px solid var(--border-light);
   border-radius: 12px;
   outline: none;
   transition: all 0.3s ease;
   padding-right: 4rem;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
 }
 
 .temperature-input:focus {
@@ -103,11 +108,12 @@
 .unit-select-input {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid var(--border);
+  border: 1px solid var(--border-light);
   border-radius: 8px;
   outline: none;
   transition: all 0.3s ease;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
   cursor: pointer;
   font-size: 0.95rem;
 }
@@ -119,9 +125,9 @@
 .swap-button {
   width: 50px;
   height: 50px;
-  border: none;
-  background: var(--primary-light);
-  color: var(--primary);
+  border: 1px solid var(--border-light);
+  background: rgba(49, 163, 84, 0.15);
+  color: var(--primary-dark);
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -130,18 +136,13 @@
   font-size: 1.05rem;
   transition: all 0.3s ease;
   margin-bottom: 2px;
-}
-
-.swap-button:hover {
-  background: var(--primary);
-  color: white;
-  transform: rotate(180deg);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .convert-button {
   width: 100%;
   padding: 1rem;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
   color: white;
   border: none;
   border-radius: 12px;
@@ -152,24 +153,16 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
   margin-bottom: 2rem;
-}
-
-.convert-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(49, 163, 84, 0.35);
+  box-shadow: 0 4px 15px rgba(49, 163, 84, 0.3);
 }
 
 .result-card {
-  background: var(--primary-light);
-  border-radius: 7px;
+  border-radius: 12px;
   padding: 2rem;
   display: flex;
   align-items: center;
   gap: 2rem;
-  border: 2px solid var(--primary-light);
-  animation: slideIn 0.3s ease;
 }
 
 .result-icon {
@@ -215,20 +208,23 @@
 
 .converter-history {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1.7rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
   height: fit-content;
 }
 
 .history-item.clickable {
   cursor: pointer;
   transition: all 0.2s ease;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .history-item.clickable:hover {
-  background: var(--background);
-  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* Responsive */

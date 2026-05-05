@@ -1,7 +1,7 @@
 .todo-page {
   min-height: 100%;
   padding: 2rem clamp(0.75rem, 2.2vw, 2rem);
-  background: var(--primary-light);
+  background: transparent;
 }
 
 .todo-container {
@@ -27,15 +27,19 @@
 
 .todo-header h1 i {
   color: var(--primary);
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .task-count {
-  background: var(--primary);
-  color: white;
+  background: rgba(49, 163, 84, 0.15);
+  color: var(--primary-dark);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-weight: 500;
   font-size: 0.9rem;
+  border: 1px solid rgba(49, 163, 84, 0.3);
 }
 
 .todo-grid {
@@ -46,9 +50,12 @@
 
 .add-task-card {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
 }
 
 .add-task-card h3 {
@@ -78,12 +85,14 @@
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 2px solid var(--border);
+  border: 1px solid var(--border-light);
   border-radius: 8px;
   outline: none;
   transition: all 0.3s ease;
   font-family: inherit;
   font-size: 0.95rem;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text);
 }
 
 .form-group input:focus,
@@ -95,7 +104,7 @@
 .btn-add-task {
   width: 100%;
   padding: 1rem;
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
   color: white;
   border: none;
   border-radius: 8px;
@@ -108,6 +117,7 @@
   gap: 0.5rem;
   transition: all 0.3s ease;
   margin-top: 1rem;
+  box-shadow: 0 4px 15px rgba(49, 163, 84, 0.3);
 }
 
 .btn-add-task:hover {
@@ -117,9 +127,12 @@
 
 .tasks-list {
   background: var(--card);
-  border-radius: 7px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--glass-shadow);
   max-height: 600px;
   overflow-y: auto;
 }
@@ -143,8 +156,9 @@
 }
 
 .task-item {
-  background: var(--background);
-  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1rem;
   display: flex;
@@ -156,12 +170,12 @@
 
 .task-item.completed {
   border-left-color: var(--success);
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 .task-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(49, 163, 84, 0.2);
 }
 
 .task-content {

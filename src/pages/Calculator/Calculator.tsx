@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '@/hooks/useToast';
 import { type CalculatorHistory } from '../../types';
 import './Calculator.css';
@@ -162,31 +163,31 @@ const Calculator: React.FC = () => {
 
           <div className="calculator-buttons">
             <div className="button-grid">
-              <button onClick={handleClear} className="btn-clear">C</button>
-              <button onClick={handleBackspace} title='delete' className="btn-operator">
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleClear} className="btn-clear glass-btn">C</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleBackspace} title='delete' className="btn-operator glass-btn">
                 <i className="fi fi-rr-delete"></i>
-              </button>
-              <button onClick={() => handleOperator('/')} className="btn-operator">/</button>
-              <button onClick={() => handleOperator('*')} className="btn-operator">×</button>
+              </motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('/')} className="btn-operator glass-btn">/</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('*')} className="btn-operator glass-btn">×</motion.button>
 
-              <button onClick={() => handleNumber('7')}>7</button>
-              <button onClick={() => handleNumber('8')}>8</button>
-              <button onClick={() => handleNumber('9')}>9</button>
-              <button onClick={() => handleOperator('-')} className="btn-operator">-</button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('7')}>7</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('8')}>8</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('9')}>9</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('-')} className="btn-operator glass-btn">-</motion.button>
 
-              <button onClick={() => handleNumber('4')}>4</button>
-              <button onClick={() => handleNumber('5')}>5</button>
-              <button onClick={() => handleNumber('6')}>6</button>
-              <button onClick={() => handleOperator('+')} className="btn-operator">+</button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('4')}>4</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('5')}>5</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('6')}>6</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('+')} className="btn-operator glass-btn">+</motion.button>
 
-              <button onClick={() => handleNumber('1')}>1</button>
-              <button onClick={() => handleNumber('2')}>2</button>
-              <button onClick={() => handleNumber('3')}>3</button>
-              <button onClick={handleCalculate} className="btn-equal">=</button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('1')}>1</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('2')}>2</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('3')}>3</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleCalculate} className="btn-equal glass-btn">=</motion.button>
 
-              <button onClick={() => handleNumber('0')} className="btn-zero">0</button>
-              <button onClick={() => handleNumber('.')}>.</button>
-              <button onClick={handlePercentage} className="btn-operator">%</button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} onClick={() => handleNumber('0')} className="btn-zero glass-btn">0</motion.button>
+              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('.')}>.</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePercentage} className="btn-operator glass-btn">%</motion.button>
             </div>
           </div>
         </div>
@@ -205,20 +206,29 @@ const Calculator: React.FC = () => {
           </div>
 
           <div className="history-list">
-            {history.length === 0 ? (
-              <div className="history-empty">
-                <i className="fi fi-rr-inbox"></i>
-                <p>No calculations yet</p>
-              </div>
-            ) : (
-              history.map((item, index) => (
-                <div key={index} className="history-item">
-                  <div className="history-expression">{item.expression} =</div>
-                  <div className="history-result">{item.result}</div>
-                  <div className="history-time">{item.timestamp}</div>
-                </div>
-              ))
-            )}
+            <AnimatePresence>
+              {history.length === 0 ? (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="history-empty">
+                  <i className="fi fi-rr-inbox"></i>
+                  <p>No calculations yet</p>
+                </motion.div>
+              ) : (
+                history.map((item, index) => (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ delay: index * 0.05 }}
+                    key={item.timestamp + index}
+                    className="history-item"
+                  >
+                    <div className="history-expression">{item.expression} =</div>
+                    <div className="history-result">{item.result}</div>
+                    <div className="history-time">{item.timestamp}</div>
+                  </motion.div>
+                ))
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

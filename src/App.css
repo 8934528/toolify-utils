@@ -6,8 +6,8 @@
 
 .main-content {
   flex: 1;
-  padding-top: 44px;
-  min-height: calc(100vh - 44px);
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
 }
 
 /* Animations */
@@ -42,7 +42,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 42px;
-    min-height: calc(100vh - 42px);
+    padding-top: 60px;
+    min-height: calc(100vh - 60px);
   }
 }

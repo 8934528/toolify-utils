@@ -1,21 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
 :root {
   --primary: #31a354;
   --primary-light: #e5f5e0;
   --primary-dark: #277f41;
   --secondary: #a1d99b;
   --accent: #31a354;
+  
   --success: #4caf50;
   --warning: #ff9800;
   --danger: #f44336;
-  --dark: #16321e;
-  --light: #f7fbf6;
+  
+  --background: #e5f5e0;
+  --background-secondary: #d1e8ce;
+  
+  --card: rgba(255, 255, 255, 0.7);
+  --card-hover: rgba(255, 255, 255, 0.9);
+  
+  --border: #a1d99b;
+  --border-light: rgba(49, 163, 84, 0.2);
+  
   --text: #1d3121;
   --text-light: #4f6b54;
-  --background: #e5f5e0;
-  --card: #ffffff;
-  --border: #a1d99b;
+  
   --gradient-start: #31a354;
   --gradient-end: #a1d99b;
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(49, 163, 84, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(49, 163, 84, 0.15);
 }
 
 * {
@@ -25,13 +39,22 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--background);
   color: var(--text);
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(49, 163, 84, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(161, 217, 155, 0.25), transparent 25%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 #root {
@@ -47,12 +70,11 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--light);
-  border-radius: 4px;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: var(--border);
   border-radius: 4px;
 }
 
@@ -73,9 +95,6 @@ body {
 .text-danger { color: var(--danger); }
 .text-warning { color: var(--warning); }
 
-.bg-primary { background-color: var(--primary); }
-.bg-light { background-color: var(--light); }
-
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
 .mt-3 { margin-top: 1.5rem; }
@@ -89,3 +108,19 @@ body {
 .p-2 { padding: 1rem; }
 .p-3 { padding: 1.5rem; }
 .p-4 { padding: 2rem; }
+
+/* Global animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.glass-panel {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+}

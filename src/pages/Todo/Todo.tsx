@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useToast } from '../../hooks/useToast';
 import ConfirmationModal from '../../components/common/ConfirmationModal';
 import { type Task } from '../../types';
@@ -99,7 +100,7 @@ const Todo: React.FC = () => {
         <div className="todo-header">
           <h1>
             <i className="fi fi-rr-list-check"></i>
-            TaskMaster
+            To-Do List
           </h1>
           <div className="task-count">{getTaskCount()}</div>
         </div>
@@ -139,60 +140,70 @@ const Todo: React.FC = () => {
                 />
               </div>
 
-              <button onClick={addTask} className="btn-add-task">
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.95 }} onClick={addTask} className="btn-add-task">
                 <i className="fi fi-rr-plus"></i>
                 Add Task
-              </button>
+              </motion.button>
             </div>
           </div>
 
           <div className="tasks-section">
             <div className="tasks-list">
-              {sortedTasks.length === 0 ? (
-                <div className="no-tasks">
-                  <i className="fi fi-rr-clipboard-list"></i>
-                  <h3>No tasks yet</h3>
-                  <p>Add your first task using the form</p>
-                </div>
-              ) : (
-                sortedTasks.map(task => (
-                  <div
-                    key={task.id}
-                    className={`task-item ${task.completed ? 'completed' : ''}`}
-                  >
-                    <div className="task-content">
-                      <div className="task-title">
-                        <i className={`fi ${task.completed ? 'fi-sr-check-circle' : 'fi-rr-circle'}`}></i>
-                        <span>{task.title}</span>
+              <AnimatePresence mode='popLayout'>
+                {sortedTasks.length === 0 ? (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="no-tasks">
+                    <i className="fi fi-rr-clipboard-list"></i>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task using the form</p>
+                  </motion.div>
+                ) : (
+                  sortedTasks.map(task => (
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                      key={task.id}
+                      className={`task-item glass-panel ${task.completed ? 'completed' : ''}`}
+                    >
+                      <div className="task-content">
+                        <div className="task-title">
+                          <i className={`fi ${task.completed ? 'fi-sr-check-circle' : 'fi-rr-circle'}`}></i>
+                          <span>{task.title}</span>
+                        </div>
+                        {task.description && (
+                          <div className="task-description">{task.description}</div>
+                        )}
+                        <div className="task-meta">
+                          <i className="fi fi-rr-clock"></i>
+                          {task.addedAt}
+                        </div>
                       </div>
-                      {task.description && (
-                        <div className="task-description">{task.description}</div>
-                      )}
-                      <div className="task-meta">
-                        <i className="fi fi-rr-clock"></i>
-                        {task.addedAt}
-                      </div>
-                    </div>
 
-                    <div className="task-actions">
-                      <button
-                        onClick={() => toggleComplete(task.id)}
-                        className={`task-btn complete-btn ${task.completed ? 'completed' : ''}`}
-                        title={task.completed ? 'Mark incomplete' : 'Mark complete'}
-                      >
-                        <i className={`fi ${task.completed ? 'fi-sr-check' : 'fi-rr-check'}`}></i>
-                      </button>
-                      <button
-                        onClick={() => confirmDelete(task.id)}
-                        className="task-btn delete-btn"
-                        title="Delete task"
-                      >
-                        <i className="fi fi-rr-trash"></i>
-                      </button>
-                    </div>
-                  </div>
-                ))
-              )}
+                      <div className="task-actions">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => toggleComplete(task.id)}
+                          className={`task-btn complete-btn ${task.completed ? 'completed' : ''}`}
+                          title={task.completed ? 'Mark incomplete' : 'Mark complete'}
+                        >
+                          <i className={`fi ${task.completed ? 'fi-sr-check' : 'fi-rr-check'}`}></i>
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => confirmDelete(task.id)}
+                          className="task-btn delete-btn"
+                          title="Delete task"
+                        >
+                          <i className="fi fi-rr-trash"></i>
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  ))
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

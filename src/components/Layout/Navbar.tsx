@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useSession } from '../../hooks/useSession';
 import './Navbar.css';
 
@@ -39,8 +40,10 @@ const Navbar: React.FC = () => {
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to={getLinkWithSession('/')} className="navbar-brand">
-          <i className="fi fi-rr-apps"></i>
-          <span>Toolify-Utils</span>
+          <motion.div whileHover={{ rotate: 180 }} transition={{ duration: 0.3 }}>
+            <i className="fi fi-rr-apps"></i>
+          </motion.div>
+          <span>Toolify</span>
         </Link>
 
         <button 
@@ -54,16 +57,29 @@ const Navbar: React.FC = () => {
         </button>
 
         <div className={`navbar-menu ${isOpen ? 'open' : ''}`}>
-          {navLinks.map(link => (
-            <Link
-              key={link.path}
-              to={getLinkWithSession(link.path)}
-              className={`navbar-link ${location.pathname === link.path ? 'active' : ''}`}
-            >
-              <i className={link.icon}></i>
-              <span>{link.label}</span>
-            </Link>
-          ))}
+          {navLinks.map(link => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.path}
+                to={getLinkWithSession(link.path)}
+                className={`navbar-link ${isActive ? 'active' : ''}`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="navbar-indicator"
+                    className="navbar-indicator"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="navbar-link-content">
+                  <i className={link.icon}></i>
+                  <span>{link.label}</span>
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </nav>
