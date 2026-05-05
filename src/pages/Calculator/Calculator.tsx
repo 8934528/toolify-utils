@@ -10,6 +10,7 @@ const Calculator: React.FC = () => {
   const [operation, setOperation] = useState<string | null>(null);
   const [resetDisplay, setResetDisplay] = useState(false);
   const [history, setHistory] = useState<CalculatorHistory[]>([]);
+  const [isAdvanced, setIsAdvanced] = useState(false);
   const { showToast } = useToast();
   
   const handleClear = useCallback(() => {
@@ -106,6 +107,62 @@ const Calculator: React.FC = () => {
     }
   }, [display]);
 
+  const handleAdvanced = useCallback((op: string) => {
+    const current = parseFloat(display);
+    let result: number;
+
+    switch (op) {
+      case 'sin':
+        result = Math.sin(current);
+        break;
+      case 'cos':
+        result = Math.cos(current);
+        break;
+      case 'tan':
+        result = Math.tan(current);
+        break;
+      case 'sqrt':
+        if (current < 0) {
+          showToast('Error', 'Cannot take square root of negative number', 'error');
+          return;
+        }
+        result = Math.sqrt(current);
+        break;
+      case 'log':
+        if (current <= 0) {
+          showToast('Error', 'Logarithm undefined for non-positive numbers', 'error');
+          return;
+        }
+        result = Math.log10(current);
+        break;
+      case 'ln':
+        if (current <= 0) {
+          showToast('Error', 'Natural logarithm undefined for non-positive numbers', 'error');
+          return;
+        }
+        result = Math.log(current);
+        break;
+      case 'sq':
+        result = Math.pow(current, 2);
+        break;
+      case 'pi':
+        setDisplay(Math.PI.toString());
+        return;
+      case 'e':
+        setDisplay(Math.E.toString());
+        return;
+      default:
+        return;
+    }
+
+    const expression = `${op}(${display})`;
+    const resultStr = result.toString();
+    
+    addToHistory(expression, resultStr);
+    setDisplay(resultStr);
+    setResetDisplay(true);
+  }, [display, addToHistory, showToast]);
+
   const loadHistory = useCallback(() => {
     const saved = localStorage.getItem('calcHistory');
     if (saved) {
@@ -149,47 +206,85 @@ const Calculator: React.FC = () => {
   return (
     <div className="calculator-page">
       <div className="calculator-container">
-        <div className="calculator-main">
-          <div className="calculator-header">
-            <h1>
-              <i className="fi fi-rr-calculator"></i>
-              Calculator
-            </h1>
-          </div>
+        <div className="calculator-layout-wrapper">
+          <div className="calculator-main">
+            <div className="calculator-header">
+              <h1>
+                <i className="fi fi-rr-calculator"></i>
+                Calculator
+              </h1>
+              <button 
+                className={`btn-toggle-advanced ${isAdvanced ? 'active' : ''}`}
+                onClick={() => setIsAdvanced(!isAdvanced)}
+                title={isAdvanced ? "Switch to Basic" : "Switch to Advanced"}
+              >
+                <i className={`fi ${isAdvanced ? 'fi-rr-angle-left' : 'fi-rr-settings-sliders'}`}></i>
+              </button>
+            </div>
 
-          <div className="calculator-display">
-            <div className="display-value">{display}</div>
-          </div>
+            <div className="calculator-display">
+              <div className="display-layers">
+                <div className="display-expression">
+                  {previousValue} {operation}
+                </div>
+                <div className="display-value">{display}</div>
+              </div>
+            </div>
 
-          <div className="calculator-buttons">
-            <div className="button-grid">
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleClear} className="btn-clear glass-btn">C</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleBackspace} title='delete' className="btn-operator glass-btn">
-                <i className="fi fi-rr-delete"></i>
-              </motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('/')} className="btn-operator glass-btn">/</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('*')} className="btn-operator glass-btn">×</motion.button>
+            <div className="calculator-buttons">
+              <div className="button-grid">
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleClear} className="btn-clear glass-btn">C</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleBackspace} title='delete' className="btn-operator glass-btn">
+                  <i className="fi fi-rr-delete"></i>
+                </motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('/')} className="btn-operator glass-btn">/</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('*')} className="btn-operator glass-btn">×</motion.button>
 
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('7')}>7</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('8')}>8</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('9')}>9</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('-')} className="btn-operator glass-btn">-</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('7')}>7</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('8')}>8</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('9')}>9</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('-')} className="btn-operator glass-btn">-</motion.button>
 
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('4')}>4</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('5')}>5</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('6')}>6</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('+')} className="btn-operator glass-btn">+</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('4')}>4</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('5')}>5</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('6')}>6</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleOperator('+')} className="btn-operator glass-btn">+</motion.button>
 
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('1')}>1</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('2')}>2</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('3')}>3</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleCalculate} className="btn-equal glass-btn">=</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('1')}>1</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('2')}>2</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('3')}>3</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleCalculate} className="btn-equal glass-btn">=</motion.button>
 
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} onClick={() => handleNumber('0')} className="btn-zero glass-btn">0</motion.button>
-              <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('.')}>.</motion.button>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePercentage} className="btn-operator glass-btn">%</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} onClick={() => handleNumber('0')} className="btn-zero glass-btn">0</motion.button>
+                <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} className="glass-btn" onClick={() => handleNumber('.')}>.</motion.button>
+                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handlePercentage} className="btn-operator glass-btn">%</motion.button>
+              </div>
             </div>
           </div>
+
+          <AnimatePresence>
+            {isAdvanced && (
+              <motion.div 
+                className="advanced-panel"
+                initial={{ x: -20, opacity: 0, scaleX: 0 }}
+                animate={{ x: 0, opacity: 1, scaleX: 1 }}
+                exit={{ x: -20, opacity: 0, scaleX: 0 }}
+                transition={{ type: "spring", damping: 20, stiffness: 100 }}
+              >
+                <div className="advanced-buttons">
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('sin')} className="glass-btn">sin</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('cos')} className="glass-btn">cos</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('tan')} className="glass-btn">tan</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('sqrt')} className="glass-btn">√</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('log')} className="glass-btn">log</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('ln')} className="glass-btn">ln</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('pi')} className="glass-btn">π</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('e')} className="glass-btn">e</motion.button>
+                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={() => handleAdvanced('sq')} className="glass-btn">x²</motion.button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <div className="calculator-history">
