@@ -15,7 +15,7 @@ Toolify Utils is a collection of utility tools built with React, TypeScript, and
 
 | Dashboard | Calculator |
 | :---: | :---: |
-| ![Dashboard](../toolify-utils/public/Screenshots/homescreen.png) | ![Calculator](public/Screenshots/calculatorscreen.png) |
+| ![Dashboard](public/Screenshots/homescreen.png) | ![Calculator](public/Screenshots/calculatorscreen.png) |
 | **Temperature Converter** | **To-Do List** |
 | ![Temperature Converter](public/Screenshots/temperaturescreen.png) | ![To-Do List](public/Screenshots/todoscreen.png) |
 
