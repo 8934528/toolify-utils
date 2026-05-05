@@ -11,6 +11,14 @@ Toolify Utils is a collection of utility tools built with React, TypeScript, and
 - **Glassmorphic UI:** Modern and aesthetic design using CSS glassmorphism.
 - **Page Transitions:** Seamless navigation animations powered by Framer Motion.
 
+## Screenshots
+
+| Dashboard | Calculator |
+| :---: | :---: |
+| ![Dashboard](public/screenshots/homescreen.png) | ![Calculator](public/screenshots/calculatorscreen.png) |
+| **Temperature Converter** | **To-Do List** |
+| ![Temperature Converter](public/screenshots/temperaturescreen.png) | ![To-Do List](public/screenshots/todoscreen.png) |
+
 ## Tech Stack
 
 - **Framework:** React 19 + Vite
