@@ -50,7 +50,7 @@ const Unavailable: React.FC = () => {
 
           <div className="progress-container">
             <div className="progress-bar-wrapper">
-              <div className="progress-fill" style={{ width: '79%' }}></div>
+              <div className="progress-fill progress-fill-79"></div>
             </div>
             <span className="progress-text">Update in progress (79%)</span>
           </div>

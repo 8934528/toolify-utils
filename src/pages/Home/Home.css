@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   transform-style: preserve-3d;
+  transform: translateZ(30px);
 }
 
 .tool-card::before {
@@ -77,12 +78,14 @@
   margin-bottom: 1rem;
   color: var(--primary-dark);
   font-size: 1.5rem;
+  transform: translateZ(40px);
 }
 
 .tool-title {
   font-size: 1.2rem;
   margin-bottom: 0.75rem;
   color: var(--text);
+  transform: translateZ(35px);
 }
 
 .tool-description {
@@ -91,6 +94,7 @@
   line-height: 1.5;
   font-size: 0.92rem;
   flex-grow: 1;
+  transform: translateZ(20px);
 }
 
 .tool-link {
@@ -102,6 +106,7 @@
   font-size: 0.9rem;
   transition: gap 0.3s ease;
   margin-top: auto;
+  transform: translateZ(40px);
 }
 
 .tool-link i {
